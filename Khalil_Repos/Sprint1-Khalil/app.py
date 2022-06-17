@@ -9,7 +9,7 @@ from sprint1.sprint1_stack import Sprint1Stack
 app = cdk.App()
 cdk.Tags.of(app).add("cohort" , "Pegasus")
 cdk.Tags.of(app).add("name" , "Khalilullah-")
-Sprint1Stack(app, "Sprint1Stack",
+Sprint1Stack(app, "KhalilullahSprint1Stack",
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.
