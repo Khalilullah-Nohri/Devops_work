@@ -31,7 +31,7 @@ class Sprint2KhalilStack(Stack):
         WebLambda.apply_removal_policy(RemovalPolicy.DESTROY) 
         
         
-        Notification = sns.Topic(self, "NotifyKhalil")                              # Topic for notification
+        Notification = sns.Topic(self, "NotifyKhalil")                   # Topic for notification
         Notification.apply_removal_policy(RemovalPolicy.DESTROY)
         
         
