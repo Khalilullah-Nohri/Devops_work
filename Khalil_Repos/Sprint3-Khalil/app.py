@@ -3,11 +3,11 @@ import os
 
 import aws_cdk as cdk
 
-from sprint3_khalil.sprint3_khalil_stack import Sprint3KhalilStack
+from pipelineStack import PipelineStack
 
 
 app = cdk.App()
-Sprint3KhalilStack(app, "Sprint3KhalilStack",
+PipelineStack(app, "KhalilPipelineStack",
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.
