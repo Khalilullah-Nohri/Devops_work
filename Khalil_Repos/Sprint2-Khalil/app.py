@@ -7,6 +7,9 @@ from sprint2_khalil.sprint2_khalil_stack import Sprint2KhalilStack
 
 
 app = cdk.App()
+
+# https://docs.aws.amazon.com/cdk/v2/guide/tagging.html
+# Tags are informational key-value elements that you can add to constructs in your AWS CDK app. A tag applied to a given construct also applies to all of its taggable children
 cdk.Tags.of(app).add("cohort" , "Pegasus")
 cdk.Tags.of(app).add("name" , "Khalilullah")
 Sprint2KhalilStack(app, "Sprint2KhalilStack",
