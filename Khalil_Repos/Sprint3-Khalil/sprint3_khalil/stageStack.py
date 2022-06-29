@@ -5,7 +5,7 @@ from aws_cdk import(
 
 
 from constructs import Construct
-from sprint3_khalil_stack import Sprint3KhalilStack
+from sprint3_khalil.sprint3_khalil_stack import Sprint3KhalilStack
 
 
 class StageStack(Stage):

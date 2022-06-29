@@ -9,7 +9,7 @@ from constructs import Construct
 
 
 # from sprint3_khalil.stageStack import StageStack
-from  stageStack import StageStack
+from  sprint3_khalil.stageStack import StageStack
 class PipelineStack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
@@ -24,7 +24,7 @@ class PipelineStack(Stack):
         # For GitHubTrigger: https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_codepipeline_actions/GitHubTrigger.html#aws_cdk.aws_codepipeline_actions.GitHubTrigger.POLL
         # For Secret Value : https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.core/SecretValue.html#aws_cdk.core.SecretValue
         source=pipe.CodePipelineSource.git_hub("Khalilullah2022SkipQ/Pegasus_Python_SkipQ", 
-                                        authentication =cdk.SecretValue.secrets_manager('khalil-github-oauth-token'),branch="main",
+                                        authentication =cdk.SecretValue.secrets_manager('khalil-git-hub-oauth-token'),branch="main",
                                         trigger=pipeactions.GitHubTrigger('POLL')     # POLL : CodePipeline periodically checks the source for changes.
         )
         # source=pipe.CodePipelineSource.connection("Khalilullah2022SkipQ/Pegasus_Python_SkipQ", 

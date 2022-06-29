@@ -3,7 +3,7 @@ import os
 
 import aws_cdk as cdk
 
-from pipelineStack import PipelineStack
+from sprint3_khalil.pipelineStack import PipelineStack
 
 
 app = cdk.App()
