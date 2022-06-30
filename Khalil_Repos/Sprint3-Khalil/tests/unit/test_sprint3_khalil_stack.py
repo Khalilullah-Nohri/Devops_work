@@ -1,6 +1,6 @@
 import aws_cdk as core
 import aws_cdk.assertions as assertions
-# from aws_cdk.assertions import Template
+
 from sprint3_khalil.sprint3_khalil_stack import Sprint3KhalilStack
 
 # example tests. To run these tests, uncomment this file along with the example
@@ -10,22 +10,13 @@ from sprint3_khalil.sprint3_khalil_stack import Sprint3KhalilStack
 #     stack = Sprint3KhalilStack(app, "sprint3-khalil")
 #     template = assertions.Template.from_stack(stack)
 
+# To ignore warnings:  https://stackoverflow.com/questions/40710094/how-to-suppress-py-test-internal-deprecation-warnings
+# pytest path-to-test-folder -W ignore::DeprecationWarning  OR pytest -W ignore::DeprecationWarning
 def test_create_lambda():
     app = core.App()
     stack = Sprint3KhalilStack(app, "sprint3-khalil")
     template = assertions.Template.from_stack(stack)
     template.resource_count_is("AWS::Lambda::Function",2)   #2 or 4
-
-# import warnings
-
-
-# def api_v1():
-#     warnings.warn(UserWarning("api v1, should use functions from v2"))
-#     return 1
-
-
-# def test_one():
-#     assert api_v1() == 1
 
 # def test_create_DYnamo():
 #     app = core.App()
