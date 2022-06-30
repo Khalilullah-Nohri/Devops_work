@@ -11,7 +11,8 @@ from aws_cdk import (
     aws_sns as sns,                  # used for: SNS(Simple Notification Service) 
     aws_sns_subscriptions as subscriptions,     # used for : email or lambda or SMS subscriptions
     aws_cloudwatch_actions as actions,          # use to add alarm over  actions 
-    aws_dynamodb as DB                          # For Dynamo DB module 
+    aws_dynamodb as DB,                         # For Dynamo DB module 
+    aws_codedeploy as codedeploy
 )
 from constructs import Construct
 from resource import global_instance as gb                      # User define files for global constant
@@ -73,6 +74,74 @@ class Sprint3KhalilStack(Stack):
         table_name=global_table.table_name                                              
         DBLambda.add_environment("tableName" ,table_name )                              # add Table name as an  environmental variable
         Notification.add_subscription(subscriptions.LambdaSubscription(fn = DBLambda))
+       
+       
+       
+                                #   failure metric for the one metric
+        # One way to create failure metric 
+        # failureMetric = cloudwatch.Metric(namespace= "AWS/Lambda",metric_name="Duration", dimensions_map= {"FunctionName":WebLambda.function_name})
+        # failureMetric =WebLambda.metric_duration(period=Duration.minutes(5))
+        
+
+        # https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_lambda/Function.html  
+        # https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_cloudwatch/Alarm.html
+                                        # set alarm on failure Duration metric
+        webHealthfailureAlarm2 = cloudwatch.Alarm(
+            self,
+            id="Lambda Duration Failure Alarm2",
+            metric=WebLambda.metric_duration(period=Duration.minutes(6)),          # How long execution of this Lambda takes. average 5 minutes
+            #The period over which the specified statistic is applied. Default: Duration.minutes(5)
+            evaluation_periods = 1,
+            threshold=2500
+        )
+        
+                                        # set alarm on failure Invocations metric
+        webHealthfailureAlarm = cloudwatch.Alarm(
+            self,
+            id="Lambda Invocayions Failure Alarm",
+            metric=WebLambda.metric_invocations(period=Duration.minutes(7)),   # How often this Lambda is invoked. Sum over 5 minutes
+            comparison_operator = cloudwatch.ComparisonOperator.LESS_THAN_THRESHOLD,
+            evaluation_periods = 1,
+            threshold=1
+        )
+
+        # Create Alarms to monitor health of FO DynamoDB
+                            # Create alarm for Duration
+        DynamoDBfailureAlarm = cloudwatch.Alarm(
+            self,
+            id="DynamoDB Duration Failure Alarm",
+            metric=DBLambda.metric_duration(period=Duration.minutes(5)),       #  
+            comparison_operator = cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
+            evaluation_periods = 1,
+            threshold=2500
+        )
+        # Create alarms for Invocations
+        DynamoDBfailureAlarm2 = cloudwatch.Alarm(
+            self,
+            id="DynamoDB Invocayions Failure Alarm2",
+            metric=DBLambda.metric_invocations(period=Duration.minutes(5)),
+            comparison_operator = cloudwatch.ComparisonOperator.LESS_THAN_THRESHOLD,
+            evaluation_periods = 1,
+            threshold=1
+        )
+        
+        
+        
+        
+        # https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_lambda/Function.html
+                               # Alias for current version of Lambda
+        webHealthalias=lam.Alias(self,"Failure_Alarm_WebHealth_Khalil",alias_name="current_version_WebHealth_one",version=WebLambda.current_version)       # A new alias to a particular version of a Lambda function
+        aliasDynampDB=lam.Alias(self,"Failure_Alarm_DynamoDB_Khalil",alias_name="current_version_DynamoDB_one",version=DBLambda.current_version)       # A new alias to a particular version of a Lambda function
+        
+        # Code Deployment Group : AWS CodeDeploy is a deployment service that automates application deployments to Amazon EC2 instances, on-premises instances, serverless Lambda functions, or Amazon ECS services.
+        # https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_codedeploy/LambdaDeploymentGroup.html
+        deployment_group=codedeploy.LambdaDeploymentGroup(self,"CodeDeployment_WebHealth_Khalil", alias=webHealthalias,
+        deployment_config=codedeploy.LambdaDeploymentConfig.LINEAR_10_PERCENT_EVERY_2_MINUTES,alarms=[webHealthfailureAlarm,webHealthfailureAlarm2]      # LambdaDeploymentConfig: A custom Deployment Configuration for a Lambda Deployment Group.                    
+            )                                                                                                         # ALSO, CANARY_10_PERCENT_10_MINUTES  https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_codedeploy/LambdaDeploymentConfig.html?highlight=canary_10_percent_10_minutes#aws_cdk.aws_codedeploy.LambdaDeploymentConfig.CANARY_10_PERCENT_10_MINUTES                            
+        deployment_group2=codedeploy.LambdaDeploymentGroup(self,"CodeDeployment_DynamoDB_Khalil", alias=aliasDynampDB,
+        deployment_config=codedeploy.LambdaDeploymentConfig.LINEAR_10_PERCENT_EVERY_2_MINUTES,alarms=[DynamoDBfailureAlarm,DynamoDBfailureAlarm2])
+
+
        
         
                 #To Cron the web health lambda
