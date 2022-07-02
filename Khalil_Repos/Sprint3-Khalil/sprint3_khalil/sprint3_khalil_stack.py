@@ -92,7 +92,7 @@ class Sprint3KhalilStack(Stack):
             metric=WebLambda.metric_duration(period=Duration.minutes(6)),          # How long execution of this Lambda takes. average 5 minutes
             #The period over which the specified statistic is applied. Default: Duration.minutes(5)
             evaluation_periods = 1,
-            threshold=2500
+            threshold=6000
         )
         
                                         # set alarm on failure Invocations metric
@@ -124,8 +124,6 @@ class Sprint3KhalilStack(Stack):
             evaluation_periods = 1,
             threshold=1
         )
-        
-        
         
         
         # https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_lambda/Function.html

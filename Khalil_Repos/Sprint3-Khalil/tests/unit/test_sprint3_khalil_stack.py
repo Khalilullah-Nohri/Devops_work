@@ -13,7 +13,6 @@ def template():
     return template
     
 
-
 # To ignore warnings: [ https://stackoverflow.com/questions/40710094/how-to-suppress-py-test-internal-deprecation-warnings,
 # https://docs.pytest.org/en/stable/how-to/capture-warnings.html ]
 # Run: pytest path-to-test-folder -W ignore::DeprecationWarning  OR pytest -W ignore::DeprecationWarning
@@ -26,13 +25,14 @@ def test_create_DYnamo(template):
 
 def test_create_alarm(template):
     template.has_resource("AWS::CloudWatch::Alarm",assertions.Match.any_value())
+
+def test_create_alarm_resource_count(template):
     template.resource_count_is("AWS::IAM::Role",3)
 
-
-# def test_sqs_queue_created(template):
-#     template.has_resource_properties("AWS::SQS::Queue", {
-#         "VisibilityTimeout": 300
-#     })
+def test_sqs_queue_created(template):
+    template.has_resource_properties("AWS::CloudWatch::Alarm", {"ComparisonOperator":"LessThanThreshold"}
+    )
+    
 # def test_has_resource(template):
 #     template.template_matches({
 #     "Resource": {

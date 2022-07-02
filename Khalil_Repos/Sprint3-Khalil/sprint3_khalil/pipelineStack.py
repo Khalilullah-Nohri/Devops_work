@@ -16,9 +16,6 @@ class PipelineStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
         
         
-        # pipelineRoles_ = self.createGroupRole()    # if role will use for synth ,then use CodeBuildStep(), and it's last argument is role
-
-        
                     # 1st stage for CI/CD --> Source
         # For CodePipeline : https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.pipelines/CodePipelineSource.html 
         # For GitHubTrigger: https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_codepipeline_actions/GitHubTrigger.html#aws_cdk.aws_codepipeline_actions.GitHubTrigger.POLL
@@ -26,7 +23,8 @@ class PipelineStack(Stack):
         source=pipe.CodePipelineSource.git_hub("Khalilullah2022SkipQ/Pegasus_Python_SkipQ", 
                                         authentication =cdk.SecretValue.secrets_manager('khalil-git-hub-oauth-token'),branch="main",
                                         trigger=pipeactions.GitHubTrigger('POLL')     # POLL : CodePipeline periodically checks the source for changes.
-        )
+        ) 
+                    # Help of connection Method 
         # source=pipe.CodePipelineSource.connection("Khalilullah2022SkipQ/Pegasus_Python_SkipQ", 
         #                                 authentication =cdk.SecretValue.secrets_manager('khalil-github-oauth-token'),branch="main",
         #                                 trigger=pipeactions.GitHubTrigger('POLL')
@@ -59,21 +57,3 @@ class PipelineStack(Stack):
         modern_pipeline.add_stage(prodStage ,pre = [pipe.ManualApprovalStep("Prior to Stage")]) # pre= Additional steps to run before any of the stacks in the stage. 
         
         
-        
-    # def createGroupRole(self):
-    #     role=iam_.Role(self,"pipeline-role",
-    #     assumed_by=iam_.CompositePrincipal(
-    #             iam_.ServicePrincipal('codebuild.amazonaws.com'),
-    #             iam_.ServicePrincipal("lambda.amazonaws.com"),
-    #             iam_.ServicePrincipal("sns.amazonaws.com")
-    #             ),
-    #         managed_policies=[
-    #             iam_.ManagedPolicy.from_aws_managed_policy_name('service-role/AWSLambdaBasicExecutionRole'),
-    #             iam_.ManagedPolicy.from_aws_managed_policy_name('CloudWatchFullAccess'),
-    #             iam_.ManagedPolicy.from_aws_managed_policy_name("AmazonDynamoDBFullAccess"),
-    #             iam_.ManagedPolicy.from_aws_managed_policy_name("AwsCloudFormationFullAccess"),
-    #             iam_.ManagedPolicy.from_aws_managed_policy_name("AWSCodePipeline_FullAccess"),
-    #             iam_.ManagedPolicy.from_aws_managed_policy_name("AmazonS3FullAccess"),
-    #         ]
-    #     )
-    #     return role

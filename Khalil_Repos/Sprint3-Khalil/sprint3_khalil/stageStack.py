@@ -3,7 +3,6 @@ from aws_cdk import(
  Stage
 )
 
-
 from constructs import Construct
 from sprint3_khalil.sprint3_khalil_stack import Sprint3KhalilStack
 

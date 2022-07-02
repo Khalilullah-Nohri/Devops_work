@@ -20,7 +20,7 @@ def lambda_handler(event,context):
         cw_obj.publish_metric(nameSpace=gb.metricNamespace,metricName=latencyMetric,dimension=dimension,value=latency)
 
     print(value)
-    return "Success"   # return all webs , availability and latency
+    return "Success published the metrics"   # return all webs , availability and latency
     
 def calc_availability(url):             #method to find availability 
     http=urllib3.PoolManager()              

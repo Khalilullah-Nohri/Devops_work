@@ -31,9 +31,9 @@ def lambda_handler(event, context):
         'sortKey'     : messageStr,
         'MetricName'  : metricName,
         'TimeStamp'   : timeStamp,
-        'Type'        :Type,
-        'URL'         :url,
-        'Name Space'  :nameSpace
+        'Type'        : Type,
+        'URL'         : url,
+        'Name Space'  : nameSpace
         }
         )
     
