@@ -21,7 +21,7 @@ class PipelineStack(Stack):
         # For GitHubTrigger: https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_codepipeline_actions/GitHubTrigger.html#aws_cdk.aws_codepipeline_actions.GitHubTrigger.POLL
         # For Secret Value : https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.core/SecretValue.html#aws_cdk.core.SecretValue
         source=pipe.CodePipelineSource.git_hub("Khalilullah2022SkipQ/Pegasus_Python_SkipQ", 
-                                        authentication =cdk.SecretValue.secrets_manager('Khalil-gitHub-oauth-token'),branch="main",
+                                        authentication =cdk.SecretValue.secrets_manager('Khalil-GitHub-Oauth-token'),branch="main",
                                         trigger=pipeactions.GitHubTrigger('POLL')     # POLL : CodePipeline periodically checks the source for changes.
         ) 
                     # Help of connection Method 
