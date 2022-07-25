@@ -33,8 +33,8 @@ class PipelineStack(Stack):
                     # Time to build , 2nd stage of CI/CD
         # For ShellStep:  https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.pipelines/ShellStep.html
         synth=pipe.ShellStep("Synth",input=source,
-        commands=["cd Khalil_Repos/Sprint3-Khalil/","pip install -r requirements.txt","npm install -g aws-cdk","cdk synth"],
-        primary_output_directory="Khalil_Repos/Sprint3-Khalil/cdk.out"  #, role=pipelineRoles_
+        commands=["cd Khalil_Repos/Sprint4-Khalil/","pip install -r requirements.txt","npm install -g aws-cdk","cdk synth"],
+        primary_output_directory="Khalil_Repos/Sprint4-Khalil/cdk.out"  #, role=pipelineRoles_
         )
         
                     # uses CodePipeline to deploy CDK apps.
@@ -47,7 +47,7 @@ class PipelineStack(Stack):
         
                 # Unit testing
         unitTesting =pipe.ShellStep("Unit Testing",
-        commands=["cd Khalil_Repos/Sprint3-Khalil/","pip install -r requirements-dev.txt","pip install pytest","npm install -g aws-cdk","pytest"]
+        commands=["cd Khalil_Repos/Sprint4-Khalil/","pip install -r requirements-dev.txt","pip install pytest","npm install -g aws-cdk","pytest"]
         )
         
         #  add Beta and production stages to pipeline
