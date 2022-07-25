@@ -37,7 +37,6 @@ def lambda_handler(event, context):
 
 # All the DynamoDB function's reference is : https://boto3.amazonaws.com/v1/documentation/api/latest/guide/dynamodb.html
 
-
 def getProducts():                  # Return all the items of Table
     try:
         URLsList,URLsID=fetchURLs(table)                               # fetch all URLs which will be insert by client
@@ -88,14 +87,12 @@ def modifyProduct(ID,updateValue):      # Update the item on  Specified user's I
         if getProduct(ID):
             response = table.update_item( 
                 Key={
-                "ID": ID
-                },
+                "ID": ID},
                 # For study Expressions: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.html
                 UpdateExpression="SET #currentColumn = :value",
                 ExpressionAttributeNames={'#currentColumn':"URL"},
                 ExpressionAttributeValues={
-                    ":value": updateValue
-                },
+                    ":value": updateValue},
                 # For study ReturnValues: https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html
                 ReturnValues='UPDATED_NEW'      # Returns only the updated attributes, as they appear after the UpdateItem operation.
                 )
@@ -103,7 +100,6 @@ def modifyProduct(ID,updateValue):      # Update the item on  Specified user's I
                 "Operation": "UPDATE",
                 "Message": "SUCCESS",
                 "UpdatedAttributes": response
-                
             }
             return buildResponse(200, body)
         else:
