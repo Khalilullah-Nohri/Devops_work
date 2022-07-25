@@ -5,7 +5,7 @@ This is a `Cloud9`  `REST API` project development with CDK.
 
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
-This project is set up to make an API for the clien and autmoate the Web health labmda Application. This is build on Cloud9 environment
+This project is set up to make an API for the client and automate the Web health labmda Application. This is build on Cloud9 environment
 with use of `EC2` instance , and lambda function. In this project We just create RESTAPI and work on CRUD operations finally do same thing of previous CI/CD project. We create a pipeline along with couple of stages and further 
 more also add some unit testing.All we need to do is if we make any change in our infrastructure then just change it and push to the repo, with help of code pipeline and our CI/CD automation it will fetch code/source from Git 
 and finally and deploy it.
