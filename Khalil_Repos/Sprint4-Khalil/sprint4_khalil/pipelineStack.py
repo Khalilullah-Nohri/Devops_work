@@ -47,7 +47,7 @@ class PipelineStack(Stack):
         
                 # Unit testing
         unitTesting =pipe.ShellStep("Unit Testing",
-        commands=["cd Khalil_Repos/Sprint4-Khalil/","pip install -r requirements-dev.txt","pip install pytest","npm install -g aws-cdk","pytest"]
+        commands=["cd Khalil_Repos/Sprint4-Khalil/","pip install -r requirements-dev.txt","npm install -g aws-cdk","pip install pytest","pytest"]
         )
         
         #  add Beta and production stages to pipeline
