@@ -113,7 +113,9 @@ class Sprint2KhalilStack(Stack):
                 iam_.ManagedPolicy.from_aws_managed_policy_name('service-role/AWSLambdaBasicExecutionRole'),
                 iam_.ManagedPolicy.from_aws_managed_policy_name('CloudWatchFullAccess'),
                 iam_.ManagedPolicy.from_aws_managed_policy_name("AmazonDynamoDBFullAccess"),
-                iam_.ManagedPolicy.from_aws_managed_policy_name("AwsCloudFormationFullAccess")
+                iam_.ManagedPolicy.from_aws_managed_policy_name("AwsCloudFormationFullAccess"),
+                # iam_.ManagedPolicy.from_aws_managed_policy_name("AWSCodePipeline_FullAccess"),
+                # iam_.ManagedPolicy.from_aws_managed_policy_name("AmazonS3FullAccess"),
             ]
         )
         return role
