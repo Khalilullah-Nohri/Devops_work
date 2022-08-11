@@ -10,14 +10,20 @@ Task to do for this Project is:
     a) Make an AWS app that generates an alarm if arg1 > 10.
     b) When the alarm is raised, sends an email to a dummy account.
 
-So For this , I create and `Lambda RestApi` and `POST` httpMethod along with this also create a `lambda Function` in main Stack File,
+So For this , I create and `Lambda RestApi` and `POST` httpMethod along with this, also create a `lambda Function` in main Stack File,
 further, create another .py lambda file , in which a user define POST function is created and inside that `put_metric_data` function has 
 also been called to put metrics on CLoud watch. SNS Topic also being used in stack to notify the user.
 
 and Finally 
 
 2) What will you do if there is no lambda invocation even though the code is working fine and there is no error generated?
-
+    ```
+    https://docs.aws.amazon.com/lambda/latest/dg/troubleshooting-invocation.html
+    1. General: Cannot invoke function with other accounts or services, Issue: You can invoke your function directly, but it doesn't run when another service or account invokes it.
+    2. add_permission() method of Lambda function
+    3. Cron() schedule problem
+    
+    ```
 
 To Run the Project:
 

@@ -30,8 +30,8 @@ def lambda_handler(event, context):
 def saveProduct (requestBody):      # Insert the item in Table
     try:
         avail=int(requestBody['Value'])
-        dimension=[{'Name':'Arguments','Value':requestBody['Value']}]           # A dimension is a name/value pair that is part of the identity of a metric
-        cw_obj.publish_metric(nameSpace=gb.metricNamespace,metricName='Argument-Metric',dimension=dimension,value=avail)
+        dimension=[{'Name':'Arguments','Value':"Final Values"}]           # A dimension is a name/value pair that is part of the identity of a metric
+        cw_obj.publish_metric(nameSpace=gb.metricNamespace,metricName='ArgumentMetric',dimension=dimension,value=avail)
         body={
             "Operation": "Input Values",
             "Message": "Success", 

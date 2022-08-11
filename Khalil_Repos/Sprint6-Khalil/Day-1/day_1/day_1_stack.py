@@ -39,6 +39,7 @@ class Day1Stack(Stack):
         # https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_apigateway/README.html
         api = apiGate.LambdaRestApi(self, "Khalil-restApi-crud",
         handler=ApiLambda, proxy=False)
+        
         urlCRUD = api.root.add_resource("Fetch-Operation")
 
     # To use lambdaIntegretion: https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_apigateway/LambdaIntegration.html
@@ -46,13 +47,14 @@ class Day1Stack(Stack):
         urlCRUD.add_method("POST")
                                              # create  each metric
             # https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_cloudwatch/Metric.html
-        dimension = {'Arguments' : 'Arguments_'}
-        metricAvail = cloudwatch.Metric(metric_name="Argument-Metric", namespace= gb.metricNamespace, dimensions_map= dimension,
+        dimension = {'Arguments' : 'Final Values'}
+        metricAvail = cloudwatch.Metric(metric_name="ArgumentMetric", namespace= gb.metricNamespace, dimensions_map= dimension,
         period=Duration.minutes(1),color="#00ff00") # period=Duration(1),The period over which the specified statistic is applied.
        
                                                        # Creating alarm for each metric
             
         alarmAvail =metricAvail.create_alarm(self, id ='Arg-Alarm', evaluation_periods= 1 , threshold= 10,datapoints_to_alarm=1)  # max: Availabilty can be 1
+        
         alarmAvail.add_alarm_action(actions.SnsAction(Notification))
         
                 # Lambda Construct
@@ -70,13 +72,9 @@ class Day1Stack(Stack):
         role=iam_.Role(self,"pipeline-role",
         assumed_by=iam_.CompositePrincipal(
             # https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_iam/ServicePrincipal.html
-                # iam_.ServicePrincipal('codebuild.amazonaws.com'),
                 iam_.ServicePrincipal("lambda.amazonaws.com"),
-                # iam_.ServicePrincipal("sns.amazonaws.com"),
-                # iam_.ServicePrincipal("apigateway.amazonaws.com")
                 ),
             managed_policies=[
-            # https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_iam/ManagedPolicy.html
                 iam_.ManagedPolicy.from_aws_managed_policy_name('service-role/AWSLambdaBasicExecutionRole'),
                 iam_.ManagedPolicy.from_aws_managed_policy_name('CloudWatchFullAccess'),
                 iam_.ManagedPolicy.from_aws_managed_policy_name("AWSCloudFormationFullAccess")
