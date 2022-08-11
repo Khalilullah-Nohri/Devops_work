@@ -1,16 +1,25 @@
 
 # Welcome to your CDK Python project!
 
-This is a blank project for CDK development with Python.
+This is a `Design and Development Day 1` Project for CDK development with Python.
 
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
-This project is set up like a standard Python project.  The initialization
-process also creates a virtualenv within this project, stored under the `.venv`
-directory.  To create the virtualenv it assumes that there is a `python3`
-(or `python` for Windows) executable in your path with access to the `venv`
-package. If for any reason the automatic creation of the virtualenv fails,
-you can create the virtualenv manually.
+Task to do for this Project is:
+1) Design and Develop:    Consider that you are getting an event response as {“arg1”: 10} from an API.
+    a) Make an AWS app that generates an alarm if arg1 > 10.
+    b) When the alarm is raised, sends an email to a dummy account.
+
+So For this , I create and `Lambda RestApi` and `POST` httpMethod along with this also create a `lambda Function` in main Stack File,
+further, create another .py lambda file , in which a user define POST function is created and inside that `put_metric_data` function has 
+also been called to put metrics on CLoud watch. SNS Topic also being used in stack to notify the user.
+
+and Finally 
+
+2) What will you do if there is no lambda invocation even though the code is working fine and there is no error generated?
+
+
+To Run the Project:
 
 To manually create a virtualenv on MacOS and Linux:
 
@@ -23,18 +32,6 @@ step to activate your virtualenv.
 
 ```
 $ source .venv/bin/activate
-```
-
-If you are a Windows platform, you would activate the virtualenv like this:
-
-```
-% .venv\Scripts\activate.bat
-```
-
-Once the virtualenv is activated, you can install the required dependencies.
-
-```
-$ pip install -r requirements.txt
 ```
 
 At this point you can now synthesize the CloudFormation template for this code.
