@@ -3,13 +3,11 @@ import os
 
 import aws_cdk as cdk
 
-from sprint1.sprint1_stack import Sprint1Stack
+from day_1.day_1_stack import Day1Stack
 
 
 app = cdk.App()
-cdk.Tags.of(app).add("cohort" , "Pegasus")
-cdk.Tags.of(app).add("name" , "Khalilullah-")
-Sprint1Stack(app, "KhalilullahSprint1Stack",
+Day1Stack(app, "Day1StackKhalil",
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.

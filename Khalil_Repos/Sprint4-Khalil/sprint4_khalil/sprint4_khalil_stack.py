@@ -151,10 +151,14 @@ class Sprint4KhalilStack(Stack):
         urlCRUD = api.root.add_resource("URLs-CRUD-Operation")
 
     # To use lambdaIntegretion: https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_apigateway/LambdaIntegration.html
-        urlCRUD.add_method("GET")
-        urlCRUD.add_method("POST")
-        urlCRUD.add_method("PATCH")
-        urlCRUD.add_method("DELETE")
+        IntegrationResponse=apiGate.MockIntegration(integration_responses=[apiGate.IntegrationResponse(status_code="200")])
+        method_responses=[apiGate.MethodResponse(status_code="200")]
+        
+        
+        urlCRUD.add_method("GET",IntegrationResponse,method_responses)
+        urlCRUD.add_method("POST",IntegrationResponse,method_responses)
+        urlCRUD.add_method("PATCH",IntegrationResponse,method_responses)
+        urlCRUD.add_method("DELETE",IntegrationResponse,method_responses)
 
 
         # URLsList=fetch.fetchURLs(table_name)
