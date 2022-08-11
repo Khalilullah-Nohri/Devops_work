@@ -10,7 +10,7 @@ Task to do for this Project is:
     a) Make an AWS app that generates an alarm if arg1 > 10.
     b) When the alarm is raised, sends an email to a dummy account.
 
-So For this , I create and `Lambda RestApi` and `POST` httpMethod along with this, also create a `lambda Function` in main Stack File,
+So For this , I create a `Lambda RestApi` and `POST` httpMethod along with this, also create a `lambda Function` in main Stack File,
 further, create another .py lambda file , in which a user define POST function is created and inside that `put_metric_data` function has 
 also been called to put metrics on CLoud watch. SNS Topic also being used in stack to notify the user.
 
