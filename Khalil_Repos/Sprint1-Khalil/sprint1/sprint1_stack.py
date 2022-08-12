@@ -23,7 +23,7 @@ class Sprint1Stack(Stack):
 # Lambda Construct
     def create_lambda(self,id_,asset,handler):
         return lam.Function(self, id_,
-        runtime=lam.Runtime.PYTHON_3_9,
+        runtime=lam.Runtime.PYTHON_3_6,
         handler=handler,
         code=lam.Code.from_asset(asset),
         timeout=Duration.seconds(30))
