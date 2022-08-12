@@ -11,10 +11,9 @@ Task to do for this Project is:
     b) How will you return 10 latest events when required?
 
 So For this , I create two `Lambda RestApi` and two  httpMethod `POST` and `GET` along with this, also create a `lambda Function` and `dynamodb` table in main Stack File,
-further, create another .py lambda file , in which a user define POST and GET function are created and inside that `get_item` and `put-item` function 
-has also been called to put Data into DyNamoDB table. .
+further, create another .py lambda file , in which a user define `POST and GET` function are created and inside that `get_item` and `put-item` 
+function has also been called to put and get Data from DyNamoDB table.
 
-and Finally 
 
 
 To Run the Project:
@@ -50,4 +49,4 @@ command.
  * `cdk diff`        compare deployed stack with current state
  * `cdk docs`        open CDK documentation
 
-Enjoy!
+Happy Coding!!!

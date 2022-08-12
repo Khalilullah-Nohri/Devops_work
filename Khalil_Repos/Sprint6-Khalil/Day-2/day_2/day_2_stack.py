@@ -28,7 +28,8 @@ class Day2Stack(Stack):
         ApiLambda.apply_removal_policy(RemovalPolicy.DESTROY) 
         
         
-        global_crud_table = DB.Table(self, "DynamoDBCRUDTable", partition_key=DB.Attribute(name="TimeStamp", type=DB.AttributeType.STRING))
+        global_crud_table = DB.Table(self, "DynamoDBCRUDTable", partition_key=DB.Attribute(name="AttributeValue", type=DB.AttributeType.STRING),
+        sort_key=DB.Attribute(name="TimeStamp_", type=DB.AttributeType.STRING))
         global_crud_table.apply_removal_policy(RemovalPolicy.DESTROY)                
         
         
@@ -36,7 +37,6 @@ class Day2Stack(Stack):
         ApiLambda.add_environment("CRUDtableName" ,table_name)             # add Table name as an  environmental variable
         
 
-        
         
         
         
@@ -50,6 +50,17 @@ class Day2Stack(Stack):
 
         # urlCRUD.add_method("POST",apiGate.MockIntegration(integration_responses=[apiGate.IntegrationResponse(status_code="200")]),method_responses=[apiGate.MethodResponse(status_code="200")])
         urlCRUD.add_method("POST")
+        urlCRUD.add_method("GET")
+        
+        api2 = apiGate.LambdaRestApi(self, "Khalil-2ndrestApi-crud",
+        handler=ApiLambda, proxy=False)
+        
+        urlCRUD = api2.root.add_resource("Fetch-Operation")
+
+        # urlCRUD.add_method("POST",apiGate.MockIntegration(integration_responses=[apiGate.IntegrationResponse(status_code="200")]),method_responses=[apiGate.MethodResponse(status_code="200")])
+        urlCRUD.add_method("POST")
+        urlCRUD.add_method("GET")
+        
         
                 # Lambda Construct
 # https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_lambda/Function.html?highlight=add_environment#aws_cdk.aws_lambda.Function
@@ -70,8 +81,7 @@ class Day2Stack(Stack):
                 ),
             managed_policies=[
                 iam_.ManagedPolicy.from_aws_managed_policy_name('service-role/AWSLambdaBasicExecutionRole'),
-                # iam_.ManagedPolicy.from_aws_managed_policy_name('CloudWatchFullAccess'),
-                # iam_.ManagedPolicy.from_aws_managed_policy_name("AWSCloudFormationFullAccess")
+                iam_.ManagedPolicy.from_aws_managed_policy_name("AmazonDynamoDBFullAccess")
             ]
         )
         return role
