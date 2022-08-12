@@ -12,6 +12,7 @@ app = cdk.App()
 # Tags are informational key-value elements that you can add to constructs in your AWS CDK app. A tag applied to a given construct also applies to all of its taggable children
 cdk.Tags.of(app).add("cohort" , "Pegasus")
 cdk.Tags.of(app).add("name" , "Khalilullah")
+
 Sprint2KhalilStack(app, "Sprint2KhalilStack",
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
