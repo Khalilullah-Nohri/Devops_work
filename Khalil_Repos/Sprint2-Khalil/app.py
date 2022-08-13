@@ -7,10 +7,8 @@ from sprint2_khalil.sprint2_khalil_stack import Sprint2KhalilStack
 
 
 app = cdk.App()
-
 cdk.Tags.of(app).add("cohort" , "Pegasus")
 cdk.Tags.of(app).add("name" , "Khalilullah")
-
 Sprint2KhalilStack(app, "Sprint2KhalilStack",
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
