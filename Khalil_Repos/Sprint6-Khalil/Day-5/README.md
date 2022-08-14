@@ -32,7 +32,8 @@ CI/CD suit(code build/code pipeline/code deploy). If not, then he can go for Jen
 
 ==> Resources: 
 ------------- What is an artifact in DevOps: https://jfrog.com/knowledge-base/what-is-a-software-artifact/#:~:text=A%20DevOps%20artifact%20is%20a,layout%20depending%20on%20the%20technology.
-
+------------- To generate Artifact Manually: (For Build Source (https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_codebuild/Artifacts.html?highlight=artificate)
+For Code Pipeline/Fetch (https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_codepipeline/Artifact.html?highlight=artificate)) 
 
 ```
 
