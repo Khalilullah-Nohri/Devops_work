@@ -40,7 +40,7 @@ class PipelineStack(Stack):
         betaStage=StageStack(self, "Stage-Beta"       )
         prodStage=StageStack(self, "Stage-Production" )
         
-                # Unit testing
+                    # Unit testing
         unitTesting =pipe.ShellStep("Unit Testing",
         commands=["cd Khalil_Repos/Sprint8-Khalil/","pip install -r requirements-dev.txt","npm install -g aws-cdk","pip install pytest","pytest"]
         )
