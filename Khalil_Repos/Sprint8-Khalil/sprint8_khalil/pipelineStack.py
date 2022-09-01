@@ -18,7 +18,7 @@ class PipelineStack(Stack):
         
                     # 1st stage for CI/CD --> Source
         source=pipe.CodePipelineSource.git_hub("Khalilullah2022SkipQ/Pegasus_Python_SkipQ", 
-                                        authentication =cdk.SecretValue.secrets_manager('Khalil-GitHub-Oauth-token'),branch="main",
+                                        authentication =cdk.SecretValue.secrets_manager('Khalil-gitHub-oauth-token'),branch="main",
                                         trigger=pipeactions.GitHubTrigger('POLL')     # POLL : CodePipeline periodically checks the source for changes.
         ) 
                     # Help of connection Method 
