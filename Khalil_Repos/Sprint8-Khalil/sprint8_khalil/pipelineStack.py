@@ -38,10 +38,10 @@ class PipelineStack(Stack):
             build_environment=codebuild.BuildEnvironment(
                 # The user of a Docker image asset in the pipeline requires turning on
                 # 'dockerEnabledForSelfMutation'.
-                build_image=codebuild.LinuxBuildImage.from_asset(self, "Docker-Image",directory="./pyresttest").from_docker_registry("docker:dind"),
+                build_image=codebuild.LinuxBuildImage.from_asset(self, "Docker-Image",directory="./pyresttest").from_docker_registry(name="docker:dind"),
                 privileged=True
             ),
-            build_spec=codebuild.BuildSpec.from_object({
+            partial_build_spec=codebuild.BuildSpec.from_object({
                 "version": 0.2,
                 "phases":{
                   "install":{
