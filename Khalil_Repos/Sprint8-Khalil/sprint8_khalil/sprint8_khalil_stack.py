@@ -110,7 +110,7 @@ class Sprint8KhalilStack(Stack):
         deployment_config=codedeploy.LambdaDeploymentConfig.LINEAR_10_PERCENT_EVERY_2_MINUTES,alarms=[webHealthfailureAlarm,webHealthfailureAlarm2]      # LambdaDeploymentConfig: A custom Deployment Configuration for a Lambda Deployment Group.                    
             )                                                                                                         # ALSO, CANARY_10_PERCENT_10_MINUTES  https://docs.aws.amazon.com/cdk/api/v1/python/aws_cdk.aws_codedeploy/LambdaDeploymentConfig.html?highlight=canary_10_percent_10_minutes#aws_cdk.aws_codedeploy.LambdaDeploymentConfig.CANARY_10_PERCENT_10_MINUTES                            
         deployment_group2=codedeploy.LambdaDeploymentGroup(self,"CodeDeployment_DynamoDB_Khalil", alias=aliasDynampDB,
-        deployment_config=codedeploy.LambdaDeploymentConfig.LINEAR_10_PERCENT_EVERY_1_MINUTES,alarms=[DynamoDBfailureAlarm,DynamoDBfailureAlarm2])
+        deployment_config=codedeploy.LambdaDeploymentConfig.LINEAR_10_PERCENT_EVERY_1_MINUTE,alarms=[DynamoDBfailureAlarm,DynamoDBfailureAlarm2])
 
 
        
