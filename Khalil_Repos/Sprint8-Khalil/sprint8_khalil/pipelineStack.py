@@ -51,7 +51,7 @@ class PipelineStack(Stack):
                     ]
                   },
                   "pre_build":{
-                      "commands":["cd Sprint8-Khalil/pyresttest","docker build -t pyrest:PyRestTest ."
+                      "commands":["ls","cd Khalil_Repos/Sprint8-Khalil/pyresttest","docker build -t pyrest:PyRestTest ."
                       ]
                   },
                   "build":{
