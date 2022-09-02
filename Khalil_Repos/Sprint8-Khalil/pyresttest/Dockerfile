@@ -10,6 +10,7 @@ COPY rest_tests/ ${WORKDIR}
 ENTRYPOINT [ "pyresttest"]
 
 CMD ["https://kapjchmsw8.execute-api.us-east-2.amazonaws.com", "restApi_test.yml"]
+
 # CMD ${url} ${file}
 
 # -v D:/Docker/pyresttest/rest_tests
