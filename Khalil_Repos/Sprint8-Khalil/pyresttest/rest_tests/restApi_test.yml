@@ -1,0 +1,35 @@
+- config:
+    - testset: "CRUD tests"
+    - timeout: 100  # Increase timeout from the default 10 seconds
+
+# create entity by GET
+
+- test: 
+    - name: "GET Method"
+    - url: "prod/URLs-CRUD-Operation"
+
+
+# create entity by POST
+- test: 
+    - name: "POST Method"
+    - url: "prod/URLs-CRUD-Operation"
+    - method: "POST"
+    - body: '{"ID": "4","URL": "www.w3schools.com"}'
+    - headers: {Content-Type: application/json}
+
+# create entity by PATCH
+- test:
+    - name: "Update Method"
+    - url: "prod/URLs-CRUD-Operation"
+    - method: "PATCH"
+    - body: '{"ID": "3","updateValue": "www.javatpoint.com"}'
+    - headers: {'Content-Type': 'application/json'}
+
+# create entity by Delete
+- test: 
+    - name: "Delete a single Item"
+    - url: "prod/URLs-CRUD-Operation"
+    - method: 'DELETE'
+    - body: '{
+            "ID":"4"
+    }' 

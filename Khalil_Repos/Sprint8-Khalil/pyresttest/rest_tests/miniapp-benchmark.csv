@@ -1,0 +1,12 @@
+Benchmark,GET Method
+Benchmark Group,Default
+Failures,0
+Results,
+size_download,total_time
+76.0,0.406897
+76.0,0.779534
+76.0,0.428251
+76.0,0.826082
+76.0,0.792583
+Aggregates,
+total_time,mean,0.6466694

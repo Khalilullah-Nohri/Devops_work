@@ -1,0 +1,13 @@
+ # create entity
+
+- benchmark:
+    - name: "GET Method"
+    - url: "prod/URLs-CRUD-Operation"
+    - warmup_runs: 2
+    - 'benchmark_runs': '5'
+    - output_file: 'metrics-result.csv'
+    - metrics:
+        - total_time
+        - total_time: mean
+        # - size_download
+
