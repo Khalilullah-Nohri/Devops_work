@@ -3,7 +3,8 @@ from aws_cdk import(
     Stack,
     pipelines as pipe,
     aws_codepipeline_actions as pipeactions,
-    aws_iam as iam_
+    aws_iam as iam_,
+    aws_codebuild as codebuild
 )
 from constructs import Construct
 
@@ -32,6 +33,40 @@ class PipelineStack(Stack):
         commands=["cd Khalil_Repos/Sprint8-Khalil/","pip install -r requirements.txt","npm install -g aws-cdk","cdk synth"],
         primary_output_directory="Khalil_Repos/Sprint8-Khalil/cdk.out"  #, role=pipelineRoles_
         )
+
+        dokerBuild=pipe.CodeBuildStep("Docker-Build-Tests",commands=[],
+            build_environment=codebuild.BuildEnvironment(
+                # The user of a Docker image asset in the pipeline requires turning on
+                # 'dockerEnabledForSelfMutation'.
+                build_image=codebuild.LinuxBuildImage.from_asset(self, "Docker-Image",directory="./pyrestest").from_docker_registry("docker:dind"),
+                privileged=True
+            ),
+            build_spec=codebuild.BuildSpec.from_object({
+                "version": 0.2,
+                "phases":{
+                  "install":{
+                    "commands":[
+                  "nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 &"
+                  "timeout 15 sh -c \"until docker info; do echo .; sleep 1; done\"" 
+                    ]
+                  },
+                  "pre_build":{
+                      "commands":["cd Sprint8-Khalil/pyresttest","docker build -t pyrest:PyRestTest ."
+                      ]
+                  },
+                  "build":{
+                      "commands":[
+                          "docker images","docker run --rm pyrest:PyRestTest"
+                          ]
+                      
+                  }
+                }
+            })
+        )
+
+
+
+
         
                     # uses CodePipeline to deploy CDK apps.
         modern_pipeline = pipe.CodePipeline(self, "Pipeline",synth=synth)
@@ -47,7 +82,7 @@ class PipelineStack(Stack):
         
         #  add Beta and production stages to pipeline
 
-        modern_pipeline.add_stage(betaStage ,pre=[unitTesting])
+        modern_pipeline.add_stage(betaStage ,pre=[unitTesting],post=[dokerBuild])
         modern_pipeline.add_stage(prodStage ,pre = [pipe.ManualApprovalStep("Prior to Stage")]) # pre= Additional steps to run before any of the stacks in the stage. 
         
         
